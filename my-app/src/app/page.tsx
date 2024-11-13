@@ -24,11 +24,11 @@ export default function Home() {
   return (
     <div>
       <p>Enter the inputs : </p>
-      <label htmlFor="youtube-link">Youtube link : </label>
+      <label htmlFor="youtube-link">Enter the app id : </label>
       <input type="text" className="text-black"/>
       <br />
       <br />
-      <label htmlFor="no-comments">No of comments : </label>
+      <label htmlFor="no-comments">No of reviews : </label>
       <input type="number" className="text-black"/>
       <br />
       <button onClick={getComments}>Submit</button>

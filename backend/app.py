@@ -1,5 +1,6 @@
 from flask import Flask,request,jsonify
 from flask_cors import CORS
+import pandas as pd
 
 app=Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -12,12 +13,22 @@ def index():
 def predictComments():
     data=request.get_json()
     if data and "url" in data:
-        base_url=data["url"]
-        no_comments=data["noComments"]
+        app_id=data["url"]
+        num_reviews=data["noComments"]
+        num_reviews=int(num_reviews)
+        from google_play_scraper import reviews
+        reviews_data, _ = reviews(app_id, count=num_reviews)
+        df = pd.DataFrame(reviews_data)
+
+        reviews=df['content'].tolist()
+
+        
+
+
 
         response={
-            "url":base_url,
-            "No of Comments":no_comments
+            "app_id":app_id,
+            "Reviews":reviews,
         }
 
         return jsonify(response)
