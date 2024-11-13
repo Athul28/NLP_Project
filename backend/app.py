@@ -1,6 +1,8 @@
 from flask import Flask,request,jsonify
 from flask_cors import CORS
 import pandas as pd
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+analyzer=SentimentIntensityAnalyzer()
 
 app=Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -22,13 +24,32 @@ def predictComments():
 
         reviews=df['content'].tolist()
 
-        
 
+        #add any extra code here
+        positive=0
+        negative=0
+        neutral=0
+
+        for comment in reviews:
+            sentiment=analyzer.polarity_scores(comment)
+            print(comment)
+            print(sentiment)
+            if sentiment['compound'] >= 0.05:
+                positive+=1
+            elif sentiment['compound'] <= -0.05:
+                negative+=1
+            else:
+                neutral+=1
 
 
         response={
             "app_id":app_id,
             "Reviews":reviews,
+            "Sentimental Analysis":{
+                "positive":positive,
+                "negative":negative,
+                "neutral":neutral
+            }
         }
 
         return jsonify(response)
