@@ -11,6 +11,9 @@ export default function Home() {
   const [neutral,setNeutral]=useState(0)
   const [loading,setLoading]=useState(false)
   const [keyWords,setKeyWords]=useState<string[]>([])
+  const BASE_URL=process.env.BASE_URL || 'http://localhost:5000'
+
+  console.log(BASE_URL)
 
 
   const getComments = async() => {
@@ -19,7 +22,7 @@ export default function Home() {
 
     setLoading(true)
 
-    const response = await fetch('http://localhost:5000/predictComments', {
+    const response = await fetch(`${BASE_URL}/predictComments`, {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json'
