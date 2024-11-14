@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import LoadingIcons from 'react-loading-icons'
+import { apps_array } from "@/lib/data";
 
 
 
@@ -15,9 +16,12 @@ export default function Home() {
 
   console.log(BASE_URL)
 
+  console.log(apps_array)
+
 
   const getComments = async() => {
-    const id = (document.querySelector('input[type="text"]') as HTMLInputElement).value;
+    const id = (document.querySelector('select') as HTMLSelectElement).value;
+    console.log(id)
     const noOfComments = (document.querySelector('input[type="number"]') as HTMLInputElement).value;
 
     setLoading(true)
@@ -50,7 +54,15 @@ export default function Home() {
       <p className="text-xl">Google Play Store reviews analysis</p>
       <br />
       <label htmlFor="youtube-link">Enter the app id : </label>
-      <input type="text" className="text-black p-2 rounded-xl" />
+      {/* <input type="text" className="text-black p-2 rounded-xl" /> */}
+      <select name="" id="" className="text-black p-2">
+        <option value="" disabled selected>Select an option</option>
+        {
+          apps_array.map((item, i) => {
+        return <option key={i} value={item.package} className="text-black">{item.name}</option>
+          })
+        }
+      </select>
       <br />
       <br />
       <label htmlFor="no-comments">No of reviews : </label>
