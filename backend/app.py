@@ -9,7 +9,7 @@ from nltk.corpus import stopwords
 import numpy as np
 
 app=Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app)
 
 @app.route("/")
 def index():
@@ -98,5 +98,5 @@ def predictComments():
         return jsonify(response)
     return jsonify({"message": "failed"})
 
-if __name__=="__main__":
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
