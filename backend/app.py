@@ -5,8 +5,9 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 analyzer=SentimentIntensityAnalyzer()
 from sklearn.feature_extraction.text import CountVectorizer
 import re
+import nltk
+nltk.download('stopwords')
 from nltk.corpus import stopwords
-import numpy as np
 
 app=Flask(__name__)
 CORS(app)
